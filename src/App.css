@@ -1,38 +1,35 @@
+/* 1) Reset all margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #441752;
+}
+
+/* 2) Make sure the html/body occupy the full viewport */
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: #441752; /* Your desired background color */
+  font-family: Arial, sans-serif; /* or your chosen font */
+}
+
+/* 3) Remove any default body margin/padding just to be safe */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* If you don't need the default CRA styling, remove or override them: */
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  background-color: #441752; /* or none */
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* so it can fill the viewport height */
+  background-color: #441752; /*if you want the container to have the purple background instead of the body */
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: #441752; /* or none */
+  min-height: auto; /* remove if you don't need 100vh from default CRA code */
 }
