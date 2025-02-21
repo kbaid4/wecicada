@@ -175,12 +175,12 @@ const CreateEventPage = () => {
                 </div>
 
                 <div className="input-group">
-                  <label>Add Admin</label>
+                  <label>Add Planner</label>
                   <select
                     value={formData.addadmin}
                     onChange={(e) => setFormData({...formData, addadmin: e.target.value})}
                   >
-                    <option value="">Select Admin</option>
+                    <option value="">Select Planner</option>
                     {adminOptions.map(option => (
                       <option key={option} value={option}>{option}</option>
                     ))}
