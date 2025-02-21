@@ -21,7 +21,7 @@ const AddSupplier = () => {
     console.log('Form submitted:', formData);
     setError('');
 
-    navigate("/SignInPage"); 
+    navigate("/SupplierSide"); 
 
   };
 
@@ -160,7 +160,7 @@ const AddSupplier = () => {
 
           {error && <div className="error-message">{error}</div>}
 
-          <button type="submit" className="signup-button" onClick={() => navigate("/SignInPage")}>Register</button>
+          <button type="submit" className="signup-button" onClick={() => navigate("/SupplierSide")}>Register</button>
         </form>
 
         <style jsx>{`
