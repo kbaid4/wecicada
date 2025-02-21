@@ -22,6 +22,9 @@ import PhotoVid from './components/PhotoVid';
 import Transportation from './components/Transportation';
 import PromoMarketing from './components/PromoMarketing';
 import Techpro from './components/Techpro';
+import SupplierSide from './components/SupplierSide';
+import EditProfile from './components/EditProfile';
+
 
 
 function App() {
@@ -50,10 +53,12 @@ function App() {
       <Route path="/Transportation" element={<Transportation />} />
       <Route path="/PromoMarketing" element={<PromoMarketing />} />
       <Route path="/Techpro" element={<Techpro />} />
-
+      <Route path="/SupplierSide" element={<SupplierSide />} />
+      <Route path="/EditProfile" element={<EditProfile />} />
 
     </Routes>
   );
 }
 
 export default App;
+
