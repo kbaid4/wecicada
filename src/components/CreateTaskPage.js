@@ -107,7 +107,7 @@ const CreateTaskPage = () => {
                   />
                 </div>
                 <div className="input-group">
-                  <label>Admin</label>
+                  <label>Supplier</label>
                   <input
                     type="text"
                     value={taskData.supplier}
