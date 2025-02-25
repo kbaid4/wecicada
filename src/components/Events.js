@@ -61,6 +61,19 @@ const Events = () => {
               {item.name}
             </button>
           ))}
+
+{mainNavItems.map(item => (
+            <button
+              key={item.budget}
+              className={`nav-btn ${activeNav === item.budget ? 'active' : ''}`}
+              onClick={() => {
+                setActiveNav(item.budget);
+                handleNavButtonClick(item.path); // Navigate on click
+              }}
+            >
+              {item.budget}
+            </button>
+          ))}
         </div>
         
         <div className="nav-section right">
@@ -105,11 +118,16 @@ const Events = () => {
                 <div className="event-title">Event {index + 1}</div>
                 {/* Optionally display details */}
                 <p>Name: {eventItem.name}</p>
+                <p>Budget: {eventItem.name}</p>
+                <p>Total Spent: {eventItem.name}</p>
                 <p>Type: {eventItem.type}</p>
                 <p>Sub-type: {eventItem.subType}</p>
                 <p>Start Date: {eventItem.startDate}</p>
                 <p>End Date: {eventItem.endDate}</p>
                 <p>Location: {eventItem.location}</p>
+                <p>Tasks Done: {eventItem.tasksDone}</p>
+                <p>Tasks Remaining: {eventItem.tasksRemaining}</p>
+
               </div>
             ))}
           </div>
