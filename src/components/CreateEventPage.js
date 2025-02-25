@@ -200,7 +200,7 @@ const CreateEventPage = () => {
                 <div className="input-group">
                   <label>Budget</label>
                   <input
-                    type="text"
+                    type="number"
                     value={formData.budget}
                     onChange={(e) => setFormData({...formData, budget: e.target.value})}
                   />
