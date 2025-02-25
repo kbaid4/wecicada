@@ -10,6 +10,7 @@ const CreateEventPage = () => {
 
   const [formData, setFormData] = useState({
     name: '',
+    budget: '',
     type: '',
     subType: '',
     addadmin: '',
@@ -193,6 +194,15 @@ const CreateEventPage = () => {
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData({...formData, location: e.target.value})}
+                  />
+                </div>
+
+                <div className="input-group">
+                  <label>Budget</label>
+                  <input
+                    type="text"
+                    value={formData.budget}
+                    onChange={(e) => setFormData({...formData, budget: e.target.value})}
                   />
                 </div>
               </div>
@@ -462,3 +472,4 @@ const CreateEventPage = () => {
 };
 
 export default CreateEventPage;
+
