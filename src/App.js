@@ -24,7 +24,7 @@ import PromoMarketing from './components/PromoMarketing';
 import Techpro from './components/Techpro';
 import SupplierSide from './components/SupplierSide';
 import EditProfile from './components/EditProfile';
-
+import SupplierHomepage from './components/SupplierHomepage';
 
 
 function App() {
@@ -55,10 +55,11 @@ function App() {
       <Route path="/Techpro" element={<Techpro />} />
       <Route path="/SupplierSide" element={<SupplierSide />} />
       <Route path="/EditProfile" element={<EditProfile />} />
-
+      <Route path="/SupplierHomepage" element={<SupplierHomepage />} />
     </Routes>
   );
 }
 
 export default App;
+
 
