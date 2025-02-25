@@ -69,98 +69,9 @@ const AddSupplier = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label htmlFor="companyname">Company Name</label>
-            <input
-              type="companyname"
-              id="companyname"
-              name="companyname"
-              value={formData.companyname}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="type">Service Type</label>
-            <select
-              id="type"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              required
-            >
-              <option value="" disabled>Select service type</option>
-              <option value="Catering">Catering</option>
-              <option value="Bartenders">Bartenders</option>
-              <option value="Decorators">Decorators</option>
-              <option value="DJs">DJs</option>
-              <option value="Photobooths">Photobooths</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Convention centers/Hotels">Convention centers/Hotels</option>
-              <option value="Audio/Visual">Audio/Visual</option>
-              <option value="Printing services">Printing services</option>
-              <option value="Security services">Security services</option>
-              <option value="Transportation">Transportation</option>
-              <option value="Performers">Performers</option>
-              <option value="Ticketing services">Ticketing services</option>
-              <option value="Lighting and sound technicians">Lighting and sound technicians</option>
-              <option value="Marketing and promotional materials">Marketing and promotional materials</option>
-              <option value="Online fundraising platforms">Online fundraising platforms</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="address">Address</label>
-            <input
-              type="address"
-              id="address"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="taxid">Tax ID</label>
-            <input
-              type="taxid"
-              id="taxid"
-              name="taxid"
-              value={formData.taxid}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="phone">Phone</label>
-            <input
-              type="phone"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
           {error && <div className="error-message">{error}</div>}
 
-          <button type="submit" className="signup-button" onClick={() => navigate("/SupplierSide")}>Register</button>
+          <button type="submit" className="signup-button" onClick={() => navigate("/SupplierSide")}>Invite</button>
         </form>
 
         <style jsx>{`
@@ -265,3 +176,4 @@ const AddSupplier = () => {
 };
 
 export default AddSupplier;
+
