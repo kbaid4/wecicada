@@ -25,9 +25,14 @@ const SignUpPage = () => {
       setError('Passwords do not match');
       return;
     }
-    console.log('Form submitted:', formData);
     setError('');
-    navigate("/SignInPage"); 
+
+    // Redirect based on user selection
+    if (formData.type === "Event Planner") {
+      navigate("/SuppliersPage");
+    } else if (formData.type === "Event Supplier") {
+      navigate("/SupplierHomepage");
+    }
   };
 
   const handleChange = (e) => {
@@ -213,7 +218,6 @@ const SignUpPage = () => {
 
           <button type="submit" className="signup-button">Register</button>
         </form>
-
         <style jsx>{`
           .main-container {
             min-height: 100vh;
