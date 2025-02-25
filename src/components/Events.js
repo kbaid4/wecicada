@@ -118,7 +118,7 @@ const Events = () => {
                 <div className="event-title">Event {index + 1}</div>
                 {/* Optionally display details */}
                 <p>Name: {eventItem.name}</p>
-                <p>Budget: {eventItem.name}</p>
+                <p>Budget: {eventItem.budget}</p>
                 <p>Total Spent: {eventItem.name}</p>
                 <p>Type: {eventItem.type}</p>
                 <p>Sub-type: {eventItem.subType}</p>
