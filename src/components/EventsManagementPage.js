@@ -10,7 +10,6 @@ const EventsManagementPage = () => {
   const [currentEvent, setCurrentEvent] = useState(null);
   const [tasks, setTasks] = useState([]);
 
-  // Navigation items updated to match the Events script
   const mainNavItems = [
     { name: 'Home', path: '/SuppliersPage' },
     { name: 'Events', path: '/Events' },
@@ -49,7 +48,10 @@ const EventsManagementPage = () => {
     localStorage.setItem('tasks', JSON.stringify(allTasksObj));
   };
 
-  const statusOptions = ['Stopped', 'In Progress', 'Negotiation'];
+  const statusOptions = ['Stopped', 'In Progress', 'Completed'];
+
+  const completedTasksCount = tasks.filter(task => task.status === 'Completed').length;
+  const taskCompletionPercentage = tasks.length > 0 ? ((completedTasksCount / tasks.length) * 100).toFixed(2) : 0;
 
   return (
     <div className="app-container">
@@ -106,16 +108,18 @@ const EventsManagementPage = () => {
             <thead>
               <tr>
                 <th>Task</th>
-                <th>Admin</th>
+                <th>Supplier</th>
                 <th>Status</th>
                 <th>Date</th>
                 <th>Day</th>
+                <th>Budget</th>
+                <th>Tasks Done (%)</th>
               </tr>
             </thead>
             <tbody>
               {tasks.length === 0 ? (
                 <tr>
-                  <td colSpan="5" style={{ textAlign: 'center', color: '#888' }}>No tasks yet for this event.</td>
+                  <td colSpan="7" style={{ textAlign: 'center', color: '#888' }}>No tasks yet for this event.</td>
                 </tr>
               ) : (
                 tasks.map((task, index) => (
@@ -131,6 +135,8 @@ const EventsManagementPage = () => {
                     </td>
                     <td>{task.date}</td>
                     <td>{task.day}</td>
+                    <td>{task.budget}</td>
+                    <td>{taskCompletionPercentage}%</td>
                   </tr>
                 ))
               )}
@@ -138,6 +144,7 @@ const EventsManagementPage = () => {
           </table>
         </div>
       </main>
+
 
       <style jsx>{`
          :root {
