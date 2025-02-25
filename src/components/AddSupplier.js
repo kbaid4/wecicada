@@ -21,7 +21,7 @@ const AddSupplier = () => {
     console.log('Form submitted:', formData);
     setError('');
 
-    navigate("/SupplierSide"); 
+    navigate("/SupplierHomepage"); 
 
   };
 
@@ -71,7 +71,7 @@ const AddSupplier = () => {
 
           {error && <div className="error-message">{error}</div>}
 
-          <button type="submit" className="signup-button" onClick={() => navigate("/SupplierSide")}>Invite</button>
+          <button type="submit" className="signup-button" onClick={() => navigate("/SupplierHomepage")}>Invite</button>
         </form>
 
         <style jsx>{`
@@ -176,4 +176,5 @@ const AddSupplier = () => {
 };
 
 export default AddSupplier;
+
 
