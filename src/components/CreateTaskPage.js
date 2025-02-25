@@ -22,6 +22,7 @@ const CreateTaskPage = () => {
 
   const [taskData, setTaskData] = useState({
     name: '',
+    budget: '',
     supplier: '',
     status: '',
     date: '',
@@ -104,6 +105,12 @@ const CreateTaskPage = () => {
                     type="text"
                     value={taskData.name}
                     onChange={(e) => setTaskData({...taskData, name: e.target.value})}
+                  />
+                                    <label>Budget</label>
+                  <input
+                    type="text"
+                    value={taskData.budget}
+                    onChange={(e) => setTaskData({...taskData, budget: e.target.value})}
                   />
                 </div>
                 <div className="input-group">
@@ -348,3 +355,4 @@ const CreateTaskPage = () => {
 };
 
 export default CreateTaskPage;
+
