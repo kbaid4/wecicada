@@ -119,7 +119,7 @@ const Events = () => {
                 {/* Optionally display details */}
                 <p>Name: {eventItem.name}</p>
                 <p>Budget: {eventItem.budget}</p>
-                <p>Total Spent: {eventItem.name}</p>
+                <p>Total Spent: {eventItem.totalspent}</p>
                 <p>Type: {eventItem.type}</p>
                 <p>Sub-type: {eventItem.subType}</p>
                 <p>Start Date: {eventItem.startDate}</p>
