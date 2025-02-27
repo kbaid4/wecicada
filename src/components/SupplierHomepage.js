@@ -10,12 +10,12 @@ const SupplierHomepage = () => {
   // Navigation data
   const mainNavItems = [
     { name: 'Home', path: '/SuppliersPage' },
-    { name: 'Messages', path: '' },
+    { name: 'Messages', path:'/MessagesPage'},
   ];
   
   const userNavItems = [
-    { name: 'My Work', path: '/my-work' },
-    { name: 'My Team', path: '/my-team' }
+    { name: 'My Work', path: '/AssignedTask' },
+    { name: 'My Team'}
   ];
   
   const categories = [
