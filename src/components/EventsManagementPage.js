@@ -39,7 +39,7 @@ const EventsManagementPage = () => {
   };
 
   const handleStatusChange = (taskIndex, newStatus) => {
-    const updatedTasks = tasks.map((task, index) => 
+    const updatedTasks = tasks.map((task, index) =>
       index === taskIndex ? { ...task, status: newStatus } : task
     );
     setTasks(updatedTasks);
@@ -48,10 +48,23 @@ const EventsManagementPage = () => {
     localStorage.setItem('tasks', JSON.stringify(allTasksObj));
   };
 
-  const statusOptions = ['Stopped', 'In Progress', 'Completed'];
+  const handleTaskCompletion = (taskIndex) => {
+    const updatedTasks = tasks.map((task, index) =>
+      index === taskIndex ? { ...task, status: task.status === 'Completed' ? 'In Progress' : 'Completed' } : task
+    );
+    setTasks(updatedTasks);
+    const allTasksObj = JSON.parse(localStorage.getItem('tasks')) || {};
+    allTasksObj[eventId] = updatedTasks;
+    localStorage.setItem('tasks', JSON.stringify(allTasksObj));
+  };
 
-  const completedTasksCount = tasks.filter(task => task.status === 'Completed').length;
-  const taskCompletionPercentage = tasks.length > 0 ? ((completedTasksCount / tasks.length) * 100).toFixed(2) : 0;
+  const calculateTaskCompletion = () => {
+    if (tasks.length === 0) return 0;
+    const completedTasks = tasks.filter(task => task.status === 'Completed').length;
+    return ((completedTasks / tasks.length) * 100).toFixed(2);
+  };
+
+  const statusOptions = ['Stopped', 'In Progress', 'Completed'];
 
   return (
     <div className="app-container">
@@ -113,13 +126,14 @@ const EventsManagementPage = () => {
                 <th>Date</th>
                 <th>Day</th>
                 <th>Budget</th>
-                <th>Tasks Done (%)</th>
+                <th>Completed</th>
+                <th>Task Done (%)</th>
               </tr>
             </thead>
             <tbody>
               {tasks.length === 0 ? (
                 <tr>
-                  <td colSpan="7" style={{ textAlign: 'center', color: '#888' }}>No tasks yet for this event.</td>
+                  <td colSpan="8" style={{ textAlign: 'center', color: '#888' }}>No tasks yet for this event.</td>
                 </tr>
               ) : (
                 tasks.map((task, index) => (
@@ -136,7 +150,14 @@ const EventsManagementPage = () => {
                     <td>{task.date}</td>
                     <td>{task.day}</td>
                     <td>{task.budget}</td>
-                    <td>{taskCompletionPercentage}%</td>
+                    <td>
+                      <input
+                        type="checkbox"
+                        checked={task.status === 'Completed'}
+                        onChange={() => handleTaskCompletion(index)}
+                      />
+                    </td>
+                    <td>{calculateTaskCompletion()}%</td>
                   </tr>
                 ))
               )}
