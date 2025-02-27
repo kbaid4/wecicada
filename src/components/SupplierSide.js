@@ -21,11 +21,12 @@ const events = [
 ];
 
 const EventCard = ({ event }) => {
+  const navigate = useNavigate();
   return (
     <div className="card">
       <div className="card-header">
         <h2>{event.name}</h2>
-        <button className="message-btn">Message</button>
+        <button className="message-btn" onClick={() => navigate('/MessagesPage')}>Message</button>
       </div>
       <p className="date">{event.date}</p>
       <p className="description">{event.description}</p>
@@ -45,12 +46,12 @@ const SupplierSide = () => {
 
   const mainNavItems = [
     { name: 'Home', path: '/SuppliersPage' },
-    { name: 'Messages' }
+    { name: 'Messages', path: '/MessagesPage'}
   ];
   
   const userNavItems = [
-    { name: 'My Work', path: '/my-work' },
-    { name: 'My Team', path: '/my-team' }
+    { name: 'My Work', path: '/AssignedTask' },
+    { name: 'My Team'}
   ];
   
   return (
@@ -112,7 +113,6 @@ const SupplierSide = () => {
           <EventCard key={index} event={event} />
         ))}
       </div>
-
 
       <style jsx>{`
         :root {
@@ -255,7 +255,7 @@ const SupplierSide = () => {
           margin-left: 40px;
         }
         
-                .container {
+        .container {
           display: flex;
           flex-direction: column;
           gap: 20px;
@@ -273,11 +273,12 @@ const SupplierSide = () => {
           display: flex;
           justify-content: space-between;
         }
-          .cost-buttons {
-  display: flex;
-  gap: 10px; /* Adds space between cost buttons */
-  margin-top: 10px;
-}
+        
+        .cost-buttons {
+          display: flex;
+          gap: 10px;
+          margin-top: 10px;
+        }
 
         .message-btn, .cost-buttons button {
           background: #A888B5;
