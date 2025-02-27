@@ -25,6 +25,8 @@ import Techpro from './components/Techpro';
 import SupplierSide from './components/SupplierSide';
 import EditProfile from './components/EditProfile';
 import SupplierHomepage from './components/SupplierHomepage';
+import AssignedTask from './components/AssignedTask'
+import MessagesPage from './components/MessagesPage'
 
 
 function App() {
@@ -56,6 +58,8 @@ function App() {
       <Route path="/SupplierSide" element={<SupplierSide />} />
       <Route path="/EditProfile" element={<EditProfile />} />
       <Route path="/SupplierHomepage" element={<SupplierHomepage />} />
+      <Route path="/AssignedTask" element={<AssignedTask />} />
+      <Route path="/MessagesPage" element={<MessagesPage />} />
     </Routes>
   );
 }
