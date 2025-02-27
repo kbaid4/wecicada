@@ -30,6 +30,7 @@ const CreateTaskPage = () => {
   });
 
   const statusOptions = ['Stopped', 'In Progress', 'Negotiation'];
+  const supplierOptions = ['jerry', 'brie', 'laura', 'sam'];
 
   useEffect(() => {
     const allTasksObj = JSON.parse(localStorage.getItem('tasks')) || {}; 
@@ -115,11 +116,17 @@ const CreateTaskPage = () => {
                 </div>
                 <div className="input-group">
                   <label>Supplier</label>
-                  <input
-                    type="text"
+                  <select
                     value={taskData.supplier}
                     onChange={(e) => setTaskData({...taskData, supplier: e.target.value})}
-                  />
+                  >
+                    <option value="">Select Supplier</option>
+                    {supplierOptions.map(supplier => (
+                      <option key={supplier} value={supplier}>
+                        {supplier}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </div>
               <div className="form-column">
@@ -355,4 +362,5 @@ const CreateTaskPage = () => {
 };
 
 export default CreateTaskPage;
+
 
