@@ -18,7 +18,7 @@ export default async function handler(req, res) {
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'kushagrabaid@gmail.com', // Replace with your verified sender
+      from: 'noreply@wecicada.com', // Replace with your verified sender
       to: email,
       subject: `Invitation to ${eventName}`,
       html: `
