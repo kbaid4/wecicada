@@ -1,0 +1,133 @@
+/* Mobile responsive styles for SignUpPage */
+
+.main-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F5F2FA; /* fallback color for all modes */
+}
+
+@media (max-width: 600px) {
+  .main-container {
+    background-image: none;
+    background-color: #F5F2FA;
+  }
+}
+
+.signup-container {
+  max-width: 400px;
+  width: 90%;
+  margin: 2rem;
+  padding: 2rem;
+  background: rgba(168, 136, 181, 0.95);
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+}
+
+.logo-container {
+  text-align: center;
+  margin: 0 auto 2rem;
+  max-width: 200px;
+}
+
+.site-logo {
+  width: 100%;
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 500;
+  color: #555;
+}
+
+input,
+select {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.signup-button {
+  background-color: #441752;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.error-message {
+  color: #ff0000;
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.forgot-password {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: #441752;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .signup-container {
+    padding: 1rem;
+    margin: 1rem;
+    max-width: 99vw;
+  }
+  .main-container {
+    padding: 0;
+    background-color: #441752;
+  }
+  .logo-container {
+    max-width: 120px;
+    margin-bottom: 1rem;
+  }
+  .site-logo {
+    max-height: 50px;
+  }
+  .signup-form {
+    gap: 0.5rem;
+  }
+  input,
+  select {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+  .signup-button {
+    padding: 0.7rem;
+    font-size: 0.95rem;
+  }
+}

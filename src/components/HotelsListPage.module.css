@@ -1,0 +1,241 @@
+:root {
+  --primary-blue: #441752;
+  --hover-blue: #441752;
+  --light-bg: #A888B5;
+  --text-dark: #1A1F36;
+  --text-light: #441752;
+  --border-color: #441752;
+}
+
+.app-container {
+  min-height: 100vh;
+  background-color: var(--light-bg);
+  font-family: 'Inter', sans-serif;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 32px;
+  height: 64px;
+  background: #441752;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-logo {
+  height: 28px;
+  margin-right: 16px;
+}
+
+.nav-btn {
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  color: #A888B5;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: #A888B5;
+  color: #441752;
+}
+
+.nav-btn.active {
+  color: #A888B5;
+  background: #441752;
+}
+
+.user-profile {
+  width: 32px;
+  height: 32px;
+  background: #A888B5;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.hotels-header {
+  color: var(--primary-blue);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.hotels-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 32px 0 16px 0;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  padding: 0 12px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input {
+  padding: 8px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 15px;
+  background: #441752;
+  color: #A888B5;
+}
+
+.filter-sort-group {
+  display: flex;
+  gap: 12px;
+}
+
+.sort-select {
+  padding: 8px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 15px;
+  background: #441752;
+  color: #A888B5;
+}
+
+.hotels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 3.5rem;
+  margin-top: 2rem;
+  padding: 0 12px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  
+}
+
+.hotel-card {
+  margin-bottom: 0.5rem;
+}
+
+.hotel-card {
+  background: #441752;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(68,23,82,0.06);
+  padding: 0.7rem 1rem;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.hotel-image {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.hotel-name {
+  color: #A888B5;
+  font-size: 20px;
+  margin: 0;
+}
+
+.hotel-location {
+  color: #A888B5;
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+.hotel-rating {
+  color: #A888B5;
+  font-weight: 500;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+  .hotels-toolbar {
+    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 4px;
+  }
+  .hotels-header {
+    font-size: 1.4rem;
+    margin-bottom: 1.1rem;
+  }
+  .hotels-grid {
+    gap: 1.4rem;
+    padding: 0 4px;
+  }
+}
+@media (max-width: 600px) {
+  .top-nav {
+    flex-direction: column;
+    height: auto;
+    padding: 8px 4px;
+    gap: 8px;
+  }
+  .nav-section {
+    gap: 8px;
+  }
+  .hotels-header {
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+  }
+  .hotels-toolbar {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 2px;
+  }
+  .search-input, .sort-select {
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+  .hotels-grid {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-top: 1rem;
+    padding: 0 2px;
+  }
+  .hotel-card {
+    padding: 0.6rem 0.5rem;
+    max-width: 98vw;
+    min-width: 0;
+  }
+  .hotel-image {
+    width: 90vw;
+    max-width: 340px;
+    height: 56vw;
+    max-height: 180px;
+    min-width: 0;
+  }
+  .hotel-name {
+    font-size: 15px;
+  }
+  .hotel-location {
+    font-size: 13px;
+  }
+  .hotel-rating {
+    font-size: 13px;
+  }
+}
