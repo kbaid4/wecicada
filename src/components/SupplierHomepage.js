@@ -4,6 +4,7 @@ import LogoutButton from './LogoutButton';
 import UserProfile from './UserProfile';
 
 const SupplierHomepage = () => {
+  const navigate = useNavigate();
   const supplierName = localStorage.getItem('supplierName');
   const supplierEmail = localStorage.getItem('supplierEmail');
   const [displayName, setDisplayName] = React.useState('Supplier');
