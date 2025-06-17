@@ -92,7 +92,6 @@ const CreateTaskPage = () => {
       if (!allTasksObj[eventId]) {
         allTasksObj[eventId] = [];
       }
-      
       // Create task with a unique ID
       const taskWithId = {
         ...taskData,
@@ -100,11 +99,8 @@ const CreateTaskPage = () => {
         createdAt: new Date().toISOString(),
         admin_id: adminId
       };
-      
       allTasksObj[eventId].push(taskWithId);
-
       localStorage.setItem('tasks', JSON.stringify(allTasksObj));
-      
       // Also update the event's tasks array for budget calculation in Events page
       const eventsArr = JSON.parse(localStorage.getItem('events')) || [];
       const eventIdx = eventsArr.findIndex(ev => ev.id === eventId);
@@ -113,13 +109,67 @@ const CreateTaskPage = () => {
         eventsArr[eventIdx].tasks.push(taskWithId);
         localStorage.setItem('events', JSON.stringify(eventsArr));
       }
-      
       // Log the task creation
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
         await logTaskChange('create', taskWithId, user.id);
       }
-      
+
+      // --- NEW: Notify supplier and create invite if assigned ---
+      if (taskData.searchedSupplier) {
+        // Find supplier info by ID from loaded suppliers
+        let supplierObj =
+          mySuppliers.find(s => s.id === taskData.searchedSupplier) ||
+          signedUpSuppliers.find(s => s.id === taskData.searchedSupplier);
+        if (!supplierObj) {
+          // Try to find in localStorage fallback
+          const localSuppliers = JSON.parse(localStorage.getItem('signedUpSuppliers') || '[]');
+          supplierObj = localSuppliers.find(s => s.id === taskData.searchedSupplier);
+        }
+        const supplierEmail = supplierObj?.email;
+        if (supplierEmail) {
+          // 1. Create notification for supplier
+          try {
+            await supabase.from('notifications').insert([
+              {
+                supplier_email: supplierEmail,
+                event_id: eventId,
+                type: 'task-assignment',
+                status: 'unread',
+                created_at: new Date().toISOString(),
+                message: `You have been assigned to a new task for this event.`
+              }
+            ]);
+          } catch (notifErr) {
+            console.error('Error inserting supplier notification:', notifErr);
+          }
+          // 2. Insert invite for supplier if not already present
+          try {
+            const { data: existingInvite } = await supabase
+              .from('invites')
+              .select('id')
+              .eq('event_id', eventId)
+              .eq('supplier_email', supplierEmail);
+            if (!existingInvite || existingInvite.length === 0) {
+              await supabase.from('invites').insert([
+                {
+                  event_id: eventId,
+                  supplier_email: supplierEmail,
+                  invited_by_admin_id: adminId,
+                  status: 'pending',
+                  created_at: new Date().toISOString()
+                }
+              ]);
+            }
+          } catch (inviteErr) {
+            console.error('Error inserting supplier invite:', inviteErr);
+          }
+        } else {
+          console.warn('Supplier email not found for assignment notification/invite.');
+        }
+      }
+      // --- END NEW ---
+
       // Navigate with eventId in the path
       navigate(`/EventsManagementPage/${eventId}`);
     } catch (error) {
@@ -127,6 +177,7 @@ const CreateTaskPage = () => {
       // Optionally show an error message to the user
     }
   };
+
   
 
   return (
