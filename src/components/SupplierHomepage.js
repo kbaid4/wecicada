@@ -277,7 +277,43 @@ const SupplierHomepage = () => {
                     <button
                       className="apply-btn"
                       style={{ background: '#A888B5', color: '#441752', border: 'none', borderRadius: '8px', padding: '10px 28px', fontWeight: 600, fontSize: '16px', cursor: 'pointer', marginTop: 10 }}
-                      onClick={() => alert('Applied!')}
+                      onClick={async () => {
+  const { supabase } = await import('../supabaseClient');
+  try {
+    // 1. Insert into event_suppliers (if not already applied)
+    const { data: existing, error: checkError } = await supabase
+      .from('event_suppliers')
+      .select('id')
+      .eq('event_id', event.id)
+      .eq('supplier_email', supplierEmail);
+
+    if (checkError) throw checkError;
+    if (!existing || existing.length === 0) {
+      const { error: insertError } = await supabase
+        .from('event_suppliers')
+        .insert([{ event_id: event.id, supplier_email: supplierEmail }]);
+      if (insertError) throw insertError;
+    }
+
+    // 2. Insert notification for admin (event.admin_id must be available)
+    if (event.admin_id) {
+      const { error: notifError } = await supabase
+        .from('notifications')
+        .insert([{
+          admin_user_id: event.admin_id,
+          event_id: event.id,
+          supplier_email: supplierEmail,
+          type: 'application',
+          status: 'unread'
+        }]);
+      if (notifError) throw notifError;
+    }
+
+    alert('Applied! The event admin will be notified.');
+  } catch (err) {
+    alert('Error applying for event: ' + err.message);
+  }
+}}
                     >
                       Apply
                     </button>

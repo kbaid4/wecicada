@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import UserProfile from './UserProfile';
 
 const EventsManagementPage = () => {
+  // ...existing state...
+  const [notifications, setNotifications] = useState([]);
   const { adminId, loading } = useAdminId();
   const navigate = useNavigate();
   const { eventId } = useParams();
@@ -111,6 +113,19 @@ const EventsManagementPage = () => {
     };
 
     fetchEvents();
+    // Fetch notifications for this admin/event
+    if (adminId && eventId) {
+      const fetchNotifications = async () => {
+        const { data, error } = await supabase
+          .from('notifications')
+          .select('*')
+          .eq('admin_user_id', adminId)
+          .eq('event_id', eventId)
+          .order('created_at', { ascending: false });
+        if (!error) setNotifications(data);
+      };
+      fetchNotifications();
+    }
   }, [eventId, adminId]);
 
   const handleSelectEvent = (newEventId) => {
@@ -252,6 +267,51 @@ const EventsManagementPage = () => {
                     No suppliers added yet
                   </div>
                 )}
+              </div>
+            )}
+            {/* Admin Notifications Section */}
+            {notifications.length > 0 && (
+              <div style={{ marginTop: 24 }}>
+                <h3>Supplier Applications</h3>
+                <ul>
+                  {notifications.map((notif) => (
+                    <li key={notif.id} style={{ background: '#f7f7fa', borderRadius: 8, margin: '8px 0', padding: 12 }}>
+                      <span><b>{notif.supplier_email}</b> applied for this event.</span>
+                      <span style={{ marginLeft: 16, color: '#888' }}>Status: {notif.status}</span>
+                      {notif.status !== 'invited' && (
+                        <button
+                          style={{ marginLeft: 16, background: '#A888B5', color: '#441752', border: 'none', borderRadius: 6, padding: '6px 16px', cursor: 'pointer' }}
+                          onClick={async () => {
+                            // Update notification status
+                            await supabase
+                              .from('notifications')
+                              .update({ status: 'invited' })
+                              .eq('id', notif.id);
+                            // Insert into invites table if not already present
+                            const { data: existingInvite } = await supabase
+                              .from('invites')
+                              .select('id')
+                              .eq('event_id', notif.event_id)
+                              .eq('supplier_email', notif.supplier_email);
+                            if (!existingInvite || existingInvite.length === 0) {
+                              await supabase
+                                .from('invites')
+                                .insert([{
+                                  event_id: notif.event_id,
+                                  supplier_email: notif.supplier_email,
+                                  invited_by_admin_id: adminId,
+                                  status: 'pending'
+                                }]);
+                            }
+                            setNotifications((prev) =>
+                              prev.map(n => n.id === notif.id ? { ...n, status: 'invited' } : n)
+                            );
+                          }}
+                        >Invite</button>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
           </div>
