@@ -376,13 +376,36 @@ const SupplierEvents = () => {
           };
         }
         const camelEvents = sortedEvents.map(mapEventToCamelCase);
+
+        // Fetch admin names for display
+        const adminIds = Array.from(new Set(camelEvents.map(ev => ev.admin_id).filter(Boolean)));
+        let adminMap = {};
+        if (adminIds.length > 0) {
+          try {
+            const { data: profiles } = await supabase
+              .from('profiles')
+              .select('id, full_name, companyname')
+              .in('id', adminIds);
+            profiles?.forEach(p => {
+              adminMap[p.id] = p.full_name || p.companyname || '';
+            });
+          } catch (adminErr) {
+            console.warn('Failed to fetch admin names:', adminErr);
+          }
+        }
+
+        const eventsWithAdmin = camelEvents.map(ev => ({
+          ...ev,
+          adminName: adminMap[ev.admin_id] || ''
+        }));
+
         try {
-          localStorage.setItem('supplierEvents', JSON.stringify(camelEvents));
-          console.log('Saved events to localStorage, total:', camelEvents.length);
+          localStorage.setItem('supplierEvents', JSON.stringify(eventsWithAdmin));
+          console.log('Saved events to localStorage, total:', eventsWithAdmin.length);
         } catch (storageErr) {
           console.warn('Failed to save events to localStorage:', storageErr);
         }
-        setEvents(camelEvents);
+        setEvents(eventsWithAdmin);
       } catch (error) {
         console.error('Error fetching supplier events:', error);
         setError('Failed to load events. Please try again later.');
@@ -504,6 +527,16 @@ const SupplierEvents = () => {
                     </div>
                   </div>
 
+                  {/* Admin name */}
+                  {event.adminName && (
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+                      <span style={{ color: '#A888B5', fontWeight: 'bold', fontSize: '16px', marginRight: '2px' }}>👤</span>
+                      <div>
+                        <strong>Organizer:</strong> {event.adminName}
+                      </div>
+                    </div>
+                  )}
+
                   {/* Budget - Admin entered */}
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
                     <span style={{ color: '#A888B5', fontWeight: 'bold', fontSize: '16px', marginRight: '2px' }}>💰</span>
@@ -518,15 +551,25 @@ const SupplierEvents = () => {
                   <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
                     <span style={{ color: '#A888B5', fontWeight: 'bold', fontSize: '16px', marginRight: '2px' }}>📅</span>
                     <div>
-                      <strong>Date:</strong> {event.startDate 
-                        ? new Date(event.startDate).toLocaleDateString() 
+                      <strong>Date:</strong> {event.startDate
+                        ? new Date(event.startDate).toLocaleDateString()
                         : 'Not specified'}
-                      {event.endDate && event.endDate !== event.startDate && 
+                      {event.endDate && event.endDate !== event.startDate &&
                         <div style={{ marginTop: '2px' }}>
                           <strong>End Date:</strong> {new Date(event.endDate).toLocaleDateString()}
                         </div>}
                     </div>
                   </div>
+
+                  {/* Uploaded file */}
+                  {event.imageUrl && (
+                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: '4px' }}>
+                      <span style={{ color: '#A888B5', fontWeight: 'bold', fontSize: '16px', marginRight: '2px' }}>📎</span>
+                      <div>
+                        <strong>File:</strong> <a href={event.imageUrl} style={{ color: '#441752' }} target="_blank" rel="noopener noreferrer">Download</a>
+                      </div>
+                    </div>
+                  )}
                 </div>
                 
                 {/* Footer with status */}

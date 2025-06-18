@@ -62,7 +62,17 @@ const AddSupplier = () => {
       supplier_email,
       invited_by_admin_id: admin_id,
       status: 'pending',
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
+      // Store key event details so suppliers can view them even with limited permissions
+      event_name: eventDetails?.name || null,
+      event_type: eventDetails?.type || null,
+      event_sub_type: eventDetails?.sub_type || eventDetails?.subType || null,
+      event_budget: eventDetails?.budget || null,
+      event_date: eventDetails?.start_date || eventDetails?.startDate || null,
+      event_end_date: eventDetails?.end_date || eventDetails?.endDate || null,
+      event_location: eventDetails?.location || null,
+      event_image_url: eventDetails?.file?.url || eventDetails?.image_url || null,
+      admin_id
     };
     try {
       // First insert the invitation record
