@@ -34,6 +34,7 @@ import MyWork from './components/MyWork';
 import SupplierTeam from './components/SupplierTeam';
 import SupplierEvents from './components/SupplierEvents';
 import SupplierEventDetail from './components/SupplierEventDetail';
+import SupplierEventTasks from './components/SupplierEventTasks';
 import SupplierMessagesPage from './components/SupplierMessagesPage';
 import MyTeam from './components/MyTeam';
 import TestSupabase from './TestSupabase';
@@ -263,6 +264,7 @@ function App() {
         <Route path="/SupplierTeam" element={<SupplierTeam />} />
         <Route path="/SupplierEvents" element={<SupplierEvents />} />
         <Route path="/SupplierEventDetail/:eventId" element={<SupplierEventDetail />} />
+        <Route path="/SupplierEventTasks/:eventId" element={<SupplierEventTasks />} />
         <Route path="/SupplierMessagesPage" element={<SupplierMessagesPage />} />
         <Route path="/my-team" element={<MyTeam />} />
         <Route path="/MessagesPage" element={<MessagesPage />} />
