@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import UserProfile from './UserProfile';
-import NotificationBell from './NotificationBell';
 import { supabase } from '../supabaseClient';
 
 const SupplierEventTasks = () => {
